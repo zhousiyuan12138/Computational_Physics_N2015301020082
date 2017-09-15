@@ -17,8 +17,12 @@ $ python3 print_char.py [OPTIONS]
 ### Options
 
 ```
--s, --style   choose the symbol used to form the lattice, the default is @
--o, --os      set the operating system, win/mac/linux, the default is win
+-s, --style        choose the symbol used to form the lattice, the default is @
+-o, --os           choose the operating system, win/mac/linux, the default is win
+-h, --horizontal   display characters in horizontal mode.
+                   NOTE that in order to display characters correctly in horizontal mode,
+                   you MUST zoom out the window to make enough space for the whole sentence.
+
 ```
 ## Preview
 
@@ -30,6 +34,6 @@ Looks better when **zoomed out**.
 
 These are never gonna be done.
 
-- [ ] Display the list of characters horizontally
+- [x] Display the list of characters horizontally
 - [ ] Print colorful output
 - [ ] Convert halfwidth to fullwidth

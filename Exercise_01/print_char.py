@@ -44,13 +44,13 @@ def get_code(char):
 # to the pixel_codes given by get_code()
 def disp_char(pixel_codes):
     for i in range(0, 32):
-        # the 8-digit binary value for 8 pixels, e.g. 10100010
+	# the 8-digit binary value for 8 pixels, e.g. 10100010
 	# two values produce a line,
 	# and a character is composed of 16 lines.
         pixel_8_unit = pixel_codes[i]
         for j in range(0, 8):
             if (pixel_8_unit & 0x80):
-                print(style * 2, end = "")
+                print(symbol * 2, end = "")
             else:
                 print("  ", end = "")
             pixel_8_unit <<= 1
@@ -58,23 +58,59 @@ def disp_char(pixel_codes):
             print(newline)
     return
 
+# pixel_lines is for storing 16 lines of pixel codes
+pixel_lines = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+# Please refer to the fuction 'disp_char' for what 'get_char_hori' does.
+# They are different mainly in that 'get_char_hori' stores the pixel information
+# for future printing, while 'disp_char' prints directly
+def get_char_hori(pixel_codes):
+    for i in range(0, 32):
+        pixel_8_unit = pixel_codes[i]
+        for j in range(0, 8):
+            if (pixel_8_unit & 0x80):
+                pixel_lines[i//2].append(symbol * 2)
+            else:
+                pixel_lines[i//2].append("  ")
+            pixel_8_unit <<= 1
+        if (i % 2):
+            # make space at the end of every line for each character.
+            pixel_lines[i//2].append("  ")
+    return
+
+# print charcters from the value of pixel_lines
+def disp_char_hori(hori_lines):
+    for line in hori_lines:
+        for bit in line:
+            print(bit, end = "")
+        print(newline)
+    return
+
 # arguments available for the program
 import getopt
 import sys
-options, remainder = getopt.getopt(sys.argv[1:], 's:o:', ['os=', 'style='])
+options, remainder = getopt.getopt(sys.argv[1:], 's:o:h', ['os=', 'symbol=', 'horizontal'])
 
-style = '@' # set default display style and newline style
+symbol = '@' # set default display style and newline style
 os_newlines = {'win':'\r\n', 'mac':'\r', 'linux':'\n'}
 newline = os_newlines['win']
+style = 'vertical'
 
 for opt, arg in options:
-    if opt in ('-s', '--style'):
-        style = arg # choose the display style of characters
+    if opt in ('-s', '--symbol'):
+        symbol = arg # choose the symbol to form the lattice
     elif opt in ('-o', '--os'):
         os = arg # choose the operating system
         newline = os_newlines[os]
+    elif opt in ('-h', '--horizontal'):
+        style = 'horizontal'
 
 # display characters on screen
-for char in char_list:
-    disp_char(get_code(char))
-    print(newline)
+if style == 'vertical':
+    for char in char_list:
+        disp_char(get_code(char))
+        print(newline) # make spaces between each character
+else:
+    for char in char_list:
+        get_char_hori(get_code(char))
+    # unindent to print only once
+    disp_char_hori(pixel_lines)
