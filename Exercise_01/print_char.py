@@ -21,13 +21,12 @@ char_library = numpy.fromfile('HZK16.dat', dtype='b')
 # Get the codes for character
 def get_code(char):
 
-    gbcode = char.encode('gb2312') #获取汉字国标码
-
     try:
+        gbcode = char.encode('gb2312') #获取汉字国标码
         blocode = gbcode[0] - 160 # 获取汉字区码
         poscode = gbcode[1] - 160 # 获取汉字位码
     except:
-        print('请输入全角字符！')
+        print('请输入全角国标字符！')
         exit()
 
     # get the offset value of character in HZK16
@@ -92,7 +91,7 @@ options, remainder = getopt.getopt(sys.argv[1:], 's:o:h', ['os=', 'symbol=', 'ho
 
 symbol = '@' # set default display style and newline style
 os_newlines = {'win':'\r\n', 'mac':'\r', 'linux':'\n'}
-newline = os_newlines['win']
+newline = os_newlines['mac']
 style = 'vertical'
 
 for opt, arg in options:
