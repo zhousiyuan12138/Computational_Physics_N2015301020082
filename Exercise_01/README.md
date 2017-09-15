@@ -30,6 +30,9 @@ $ python3 print_char.py [OPTIONS]
 
 Looks better when **zoomed out**.
 
+![preview_horizontal](./preview_horizontal.png)
+
+
 ## Todolist
 
 These are never gonna be done.
