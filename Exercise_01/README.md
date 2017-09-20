@@ -20,9 +20,6 @@ $ python3 print_char.py [OPTIONS]
 -h, --horizontal   Display characters in horizontal mode.
                    NOTE that in order to display characters correctly in horizontal mode,
                    you MUST zoom out the window to make enough space for the whole sentence.
--o, --os           Choose the operating system to adopt a different newline style,
-                   win/mac/linux.
-                   Use this ONLY when the display is incorrect.
 -s, --style        Choose the symbol used to form the lattice, the default is @
                    recommendation: █, ▒, ░, ●
 ```

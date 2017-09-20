@@ -54,7 +54,7 @@ def disp_char(pixel_codes):
                 print("  ", end = "")
             pixel_8_unit <<= 1
         if (i % 2):
-            print(newline)
+            print('')
     return
 
 # pixel_lines is for storing 16 lines of pixel codes
@@ -81,25 +81,20 @@ def disp_char_hori(hori_lines):
     for line in hori_lines:
         for bit in line:
             print(bit, end = "")
-        print(newline)
+        print('')
     return
 
 # arguments available for the program
 import getopt
 import sys
-options, remainder = getopt.getopt(sys.argv[1:], 's:o:h', ['os=', 'symbol=', 'horizontal'])
+options, remainder = getopt.getopt(sys.argv[1:], 's:h', ['symbol=', 'horizontal'])
 
-symbol = '@' # set default display style and newline style
-os_newlines = {'win':'\r\n', 'mac':'\r', 'linux':'\n'}
-newline = os_newlines['mac']
+symbol = '@' # set default display style
 style = 'vertical'
 
 for opt, arg in options:
     if opt in ('-s', '--symbol'):
         symbol = arg # choose the symbol to form the lattice
-    elif opt in ('-o', '--os'):
-        os = arg # choose the operating system
-        newline = os_newlines[os]
     elif opt in ('-h', '--horizontal'):
         style = 'horizontal'
 
@@ -107,7 +102,7 @@ for opt, arg in options:
 if style == 'vertical':
     for char in char_list:
         disp_char(get_code(char))
-        print(newline) # make spaces between each character
+        print('') # make spaces between each character
 else:
     for char in char_list:
         get_char_hori(get_code(char))
